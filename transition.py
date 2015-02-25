@@ -31,7 +31,7 @@ class Transition(object):
                     return -1
                     break
             idx_b = conf.buffer.pop(0)
-            conf.arcs.append(idx_b, relation, idx_s)
+            conf.arcs.append((idx_b, relation, idx_s))
 
         else:
             return -1
