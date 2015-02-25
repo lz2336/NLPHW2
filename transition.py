@@ -30,7 +30,7 @@ class Transition(object):
                 if arc[2] == idx_s:
                     return -1
                     break
-            idx_b = conf.buffer.pop(0)
+            idx_b = conf.buffer[0]
             conf.arcs.append((idx_b, relation, idx_s))
 
         else:
