@@ -18,8 +18,27 @@ class Transition(object):
             :param configuration: is the current configuration
             :return : A new configuration or -1 if the pre-condition is not satisfied
         """
-        raise NotImplementedError('Please implement left_arc!')
-        return -1
+
+        if not conf.buffer or not conf.stack:
+            return -1
+
+        idx_s = conf.stack[-1]
+
+        if not idx_s == 0:
+            
+            for arc in conf.arcs:
+                if arc[2] == idx_s:
+                    return -1
+                    break
+            idx_b = conf.buffer.pop(0)
+            conf.arcs.append(idx_b, relation, idx_s)
+
+        else:
+            return -1
+        
+
+        #raise NotImplementedError('Please implement left_arc!')
+        #return -1
 
     @staticmethod
     def right_arc(conf, relation):
@@ -44,8 +63,26 @@ class Transition(object):
             :param configuration: is the current configuration
             :return : A new configuration or -1 if the pre-condition is not satisfied
         """
-        raise NotImplementedError('Please implement reduce!')
-        return -1
+        if not conf.stack:
+            return -1
+
+        idx_wi = conf.stack[-1]
+
+        has_head = 0
+        
+        for arc in conf.arcs:
+            if arc[2] == idx_wi:
+                has_head = 1
+                break
+
+        if has_head:
+            conf.stack.pop(-1)
+        else:
+            return -1
+
+
+        #raise NotImplementedError('Please implement reduce!')
+        #return -1
 
     @staticmethod
     def shift(conf):
@@ -53,5 +90,11 @@ class Transition(object):
             :param configuration: is the current configuration
             :return : A new configuration or -1 if the pre-condition is not satisfied
         """
-        raise NotImplementedError('Please implement shift!')
-        return -1
+        if not conf.buffer:
+            return -1
+        
+        idx_i = conf.buffer.pop(0)
+        conf.stack.append(idx_i)
+
+        #raise NotImplementedError('Please implement shift!')
+        #return -1
