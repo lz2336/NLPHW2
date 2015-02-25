@@ -32,7 +32,7 @@ class Transition(object):
                     break
             idx_b = conf.buffer[0]
             conf.arcs.append((idx_b, relation, idx_s))
-            conf.stack.pop[-1]
+            conf.stack.pop(-1)
 
         else:
             return -1
