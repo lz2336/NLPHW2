@@ -11,16 +11,16 @@ if __name__ == '__main__':
     subdata = random.sample(data, 200)
 
     try:
-        # tp = TransitionParser(Transition, FeatureExtractor)
-        # tp.train(subdata)
-        # tp.save('swedish.model')
+        tp = TransitionParser(Transition, FeatureExtractor)
+        tp.train(subdata)
+        tp.save('swedish.model')
 
         testdata = dataset.get_swedish_test_corpus().parsed_sents()
-        tp = TransitionParser.load('badfeatures.model')
+        tp = TransitionParser.load('swedish.model')
 
         parsed = tp.parse(testdata)
 
-        with open('test.conll', 'w') as f:
+        with open('swedish.conll', 'w') as f:
             for p in parsed:
                 f.write(p.to_conll(10).encode('utf-8'))
                 f.write('\n')
