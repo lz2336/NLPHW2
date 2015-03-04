@@ -111,13 +111,27 @@ class FeatureExtractor(object):
             if len(buffer) > 1:
                 buffer_idx1 = buffer[1]
                 token_1 = tokens[buffer_idx0]
-                
+
                 if FeatureExtractor._check_informative(token_1['word'], True):
                     result.append('BUF_1_FORM_' + token_1['word'])
 
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('BUF_1_POSTAG_' + token_1['tag'])
 
+            if len(buffer) > 2:
+                buffer_idx2 = buffer[2]
+                token_2 = tokens[buffer_idx2]
+
+                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
+                    result.append('BUF_2_POSTAG_' + token_2['tag'])
+
+            if len(buffer) > 3:
+                buffer_idx3 = buffer[3]
+                token_3 = tokens[buffer_idx2]
+
+                if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
+                    result.append('BUF_3_POSTAG_' + token_3['tag'])
+                    
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
                 for feat in feats:
