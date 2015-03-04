@@ -84,6 +84,12 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('STK_0_POSTAG_' + token['tag'])
 
+            if len(stack) > 1:
+                stack_idx1 = stack[-2]
+                token_1 = tokens[stack_idx1]
+                if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
+                    result.append('STK_1_POSTAG_' + token['tag'])
+
 
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
@@ -105,8 +111,12 @@ class FeatureExtractor(object):
             if len(buffer) > 1:
                 buffer_idx1 = buffer[1]
                 token_1 = tokens[buffer_idx0]
+                
                 if FeatureExtractor._check_informative(token_1['word'], True):
                     result.append('BUF_1_FORM_' + token_1['word'])
+
+                if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
+                    result.append('BUF_1_POSTAG_' + token_1['tag'])
 
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
