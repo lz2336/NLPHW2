@@ -93,15 +93,24 @@ class FeatureExtractor(object):
         if buffer:
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
+            if len(buffer) > 1:
+                buffer_idx1 = buffer[1]
+                token_1 = tokens[buffer_idx0]
             print token
 
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
 
+            if FeatureExtractor._check_informative(token_1['word'], True):
+                result.append('BUF_1_FORM_' + token_1['word'])
+
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
                 for feat in feats:
                     result.append('BUF_0_FEATS_' + feat)
+
+            if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
+                result.append('BUF_0_LEMMA_' + lemma)
 
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
 
