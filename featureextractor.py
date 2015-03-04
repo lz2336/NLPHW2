@@ -89,6 +89,8 @@ class FeatureExtractor(object):
         if buffer:
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
+            print token
+            
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
 
