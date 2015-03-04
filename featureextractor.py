@@ -79,10 +79,10 @@ class FeatureExtractor(object):
                     result.append('STK_0_FEATS_' + feat)
 
             if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
-                result.append('STK_0_LEMMA_' + lemma)
+                result.append('STK_0_LEMMA_' + token['lemma'])
 
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
-                result.append('STK_0_POSTAG_' + tag)
+                result.append('STK_0_POSTAG_' + token['tag'])
 
 
             # Left most, right most dependency of stack[0]
@@ -114,10 +114,10 @@ class FeatureExtractor(object):
                     result.append('BUF_0_FEATS_' + feat)
 
             if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
-                result.append('BUF_0_LEMMA_' + lemma)
+                result.append('BUF_0_LEMMA_' + token['lemma'])
 
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
-                result.append('BUF_0_POSTAG_' + tag)
+                result.append('BUF_0_POSTAG_' + token['tag'])
 
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
 
