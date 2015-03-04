@@ -78,6 +78,10 @@ class FeatureExtractor(object):
                 for feat in feats:
                     result.append('STK_0_FEATS_' + feat)
 
+            if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
+                result.append('STK_0_LEMMA_' + lemma)
+
+
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
 
@@ -90,7 +94,7 @@ class FeatureExtractor(object):
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
             print token
-            
+
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
 
