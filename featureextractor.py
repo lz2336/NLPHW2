@@ -153,6 +153,10 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('STK_1_FEATS_' + feat)
+                
+                num_leftchildren, num_rightchildren= FeatureExtractor.get_num_children(stack_idx1, arcs)
+                result.append('STK_1_LCHILDREN_' + num_leftchildren)
+                result.append('STK_1_RCHILDREN_' + num_rightchildren)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('STK_1_CPOSTAG_' + token_1['ctag'])
@@ -239,9 +243,9 @@ class FeatureExtractor(object):
 
             if stack:
                 stack_idx0 = stack[-1]
-                # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+                word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
                 num_intervening_NN, num_intervening_VV = FeatureExtractor.get_num_intervening_NV(stack_idx0, buffer_idx0, tokens)
-                # result.append('STK_BUF_DIST_0_' + word_distance_0)
+                result.append('STK_BUF_DIST_0_' + word_distance_0)
                 result.append('STK_BUF_INTV_NN' + num_intervening_NN)
                 result.append('STK_BUF_INTV_VV_' + num_intervening_VV)
 
