@@ -163,7 +163,7 @@ class FeatureExtractor(object):
 
             if stack:
                 stack_idx0 = stack[-1]
-                word_distance = get_word_distance(stack_idx0, buffer_idx0)
+                word_distance = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
                 result.append('STK_BUF_DIST_' + word_distance)
 
         return result
