@@ -47,17 +47,11 @@ class FeatureExtractor(object):
 
     @staticmethod
     def get_num_children(idx, arcs):
-        left_children = 0
-        right_children = 0
+        children = 0
         for (wi, r, wj) in arcs:
             if wi == idx:
-                #left children
-                if (wj < wi):
-                    left_children += 1
-                #right children
-                if (wj > wi):
-                    right_children += 1
-        return str(left_children), str(right_children)
+                children += 1
+        return str(children)
 
     @staticmethod
     def extract_features(tokens, buffer, stack, arcs):
@@ -115,9 +109,8 @@ class FeatureExtractor(object):
                 result.append('STK_0_RDEP_' + dep_right_most)
 
             #Number of left and right children for STK_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0, arcs)
-            result.append('STK_0_LEFTCHILDREN_' + num_leftchildren)
-            result.append('STK_0_RIGHTCHILDREN_' + num_rightchildren)
+            num_children = FeatureExtractor.get_num_children(stack_idx0, arcs)
+            result.append('STK_0_CHILDREN_' + num_children)
 
             if len(stack) > 1:
                 stack_idx1 = stack[-2]
@@ -128,12 +121,6 @@ class FeatureExtractor(object):
 
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
-
-                #Number of left and right children for STK_1
-                num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
-                result.append('STK_1_LEFTCHILDREN_' + num_leftchildren)
-                result.append('STK_1_RIGHTCHILDREN_' + num_rightchildren)
-
 
 
         if buffer:
@@ -186,6 +173,11 @@ class FeatureExtractor(object):
                 result.append('BUF_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('BUF_0_RDEP_' + dep_right_most)
+
+            #Number of left and right children for BUF_0
+            num_children = FeatureExtractor.get_num_children(buffer_idx0, arcs)
+            result.append('BUF_0_CHILDREN_' + num_children)
+
 
             if stack:
                 stack_idx0 = stack[-1]
