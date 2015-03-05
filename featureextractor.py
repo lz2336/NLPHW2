@@ -139,8 +139,8 @@ class FeatureExtractor(object):
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
 
-            # if FeatureExtractor._check_informative(dep_left_most):
-            #     result.append('STK_0_LDEP_' + dep_left_most)
+            if FeatureExtractor._check_informative(dep_left_most):
+                result.append('STK_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('STK_0_RDEP_' + dep_right_most)
 
@@ -197,8 +197,8 @@ class FeatureExtractor(object):
 
             if FeatureExtractor._check_informative(dep_left_most):
                 result.append('BUF_0_LDEP_' + dep_left_most)
-            # if FeatureExtractor._check_informative(dep_right_most):
-            #     result.append('BUF_0_RDEP_' + dep_right_most)
+            if FeatureExtractor._check_informative(dep_right_most):
+                result.append('BUF_0_RDEP_' + dep_right_most)
 
             #Number of left and right children for BUF_0
             num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
@@ -248,6 +248,15 @@ class FeatureExtractor(object):
 
                 # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
                 #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
+            if len(buffer) > 4:
+                buffer_idx3 = buffer[4]
+                token_4 = tokens[buffer_idx4]
+
+                # if FeatureExtractor._check_informative(token_4['word'], True):
+                #     result.append('BUF_4_FORM_' + token_4['word'])
+
+                if 'tag' in token_4 and FeatureExtractor._check_informative(token_4['tag']):
+                    result.append('BUF_4_POSTAG_' + token_4['tag'])
 
             if stack:
                 stack_idx0 = stack[-1]
