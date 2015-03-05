@@ -23,6 +23,13 @@ class FeatureExtractor(object):
         return True
 
     @staticmethod
+    def get_word_distance(idx1, idx2):
+        """
+        Get distance between two words
+        """
+        return str(math.fabs(idx1 - idx2))
+
+    @staticmethod
     def find_left_right_dependencies(idx, arcs):
         left_most = 1000000
         right_most = -1
@@ -88,9 +95,12 @@ class FeatureExtractor(object):
             if len(stack) > 1:
                 stack_idx1 = stack[-2]
                 token_1 = tokens[stack_idx1]
+
+                if FeatureExtractor._check_informative(token_1['word'], True):
+                    result.append('STK_1_FORM_' + token_1['word'])
+
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token['tag'])
-
 
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
@@ -153,7 +163,7 @@ class FeatureExtractor(object):
 
             if stack:
                 stack_idx0 = stack[-1]
-                word_distance = math.fabs(stack_idx0 - buffer_idx0)
-                result.append('STK_BUF_DIST_' + str(word_distance))
+                word_distance = get_word_distance(stack_idx0, buffer_idx0)
+                result.append('STK_BUF_DIST_' + word_distance)
 
         return result
