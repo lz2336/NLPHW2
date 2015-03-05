@@ -125,7 +125,7 @@ class FeatureExtractor(object):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
 
             #Number of left and right children for STK_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0)
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0, arcs)
             result.append('STK_0_LEFTCHILDREN_' + num_leftchildren)
             result.append('STK_0_RIGHTCHILDREN_' + num_rightchildren)
 
@@ -181,7 +181,7 @@ class FeatureExtractor(object):
                 result.append('BUF_0_RDEP_' + dep_right_most)
 
             #Number of left and right children for BUF_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0)
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
             result.append('BUF_0_LEFTCHILDREN_' + num_leftchildren)
             result.append('BUF_0_RIGHTCHILDREN_' + num_rightchildren)
 
