@@ -138,16 +138,6 @@ class FeatureExtractor(object):
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('STK_1_CPOSTAG_' + token_1['ctag'])
 
-            if len(stack) > 2:
-                stack_idx2 = stack[-3]
-                token_2 = tokens[stack_idx2]
-                
-                if FeatureExtractor._check_informative(token_2['word'], True):
-                    result.append('STK_2_FORM_' + token_2['word'])
-
-                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
-                    result.append('STK_2_POSTAG_' + token_2['tag'])
-
 
         if buffer:
             buffer_idx0 = buffer[0]
@@ -230,7 +220,12 @@ class FeatureExtractor(object):
 
             if stack:
                 stack_idx0 = stack[-1]
-                word_distance = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                result.append('STK_BUF_DIST_' + word_distance)
+                word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+                result.append('STK_BUF_DIST_0_' + word_distance_0)
+
+                if len(stack) > 1 and len(buffer) > 1:
+                    stack_idx1 = stack[-2]
+                    word_distance_1 = FeatureExtractor.get_word_distance(stack_idx1, buffer_idx1)
+                    result.append('STK_BUF_DIST_1_' + word_distance_1)
 
         return result
