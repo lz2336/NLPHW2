@@ -23,13 +23,13 @@ class FeatureExtractor(object):
         return True
 
     @staticmethod
-    def get_word_distance(idx1, idx2, tokens):
+    def get_word_distance(idx1, idx2):
         """
         Get distance between two words
         """
         return str(math.fabs(idx1 - idx2))
 
-    def get_num_intervening_VV(idx1, idx2):
+    def get_num_intervening_VV(idx1, idx2, tokens):
         if idx1 < idx2:
             i, j = idx1, idx2
         else:
