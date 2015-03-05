@@ -30,19 +30,22 @@ class FeatureExtractor(object):
         return str(math.fabs(idx1 - idx2))
 
     @staticmethod
-    def get_num_intervening_VV(idx1, idx2, tokens):
+    def get_num_intervening_NV(idx1, idx2, tokens):
         if idx1 < idx2:
             i, j = idx1, idx2
         else:
             i, j = idx2, idx1
 
         num_intervening_VV = 0
+        num_intervening_NN = 0
         for token_idx in range(i, j + 1):
             token = tokens[token_idx]
             if 'tag' in token:
                 if token['tag'] == 'VV':
                     num_intervening_VV += 1
-        return str(num_intervening_VV)
+                if token['tag'] == 'NN':
+                    num_intervening_NN += 1
+        return str(num_intervening_NN), str(num_intervening_VV)
 
 
     @staticmethod
@@ -237,10 +240,9 @@ class FeatureExtractor(object):
             if stack:
                 stack_idx0 = stack[-1]
                 word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                num_intervening_VV = FeatureExtractor.get_num_intervening_VV(stack_idx0, buffer_idx0, tokens)
+                num_intervening_NN, num_intervening_VV = FeatureExtractor.get_num_intervening_NV(stack_idx0, buffer_idx0, tokens)
                 result.append('STK_BUF_DIST_0_' + word_distance_0)
+                result.append('STK_BUF_INTV_NN' + num_intervening_NN)
                 result.append('STK_BUF_INTV_VV_' + num_intervening_VV)
-
-
 
         return result
