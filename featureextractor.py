@@ -45,9 +45,9 @@ class FeatureExtractor(object):
                     dep_left_most = r
         return dep_left_most, dep_right_most
 
-    @staticmethod
-    def get_num_children(idx, arcs):
-        left_children = 
+    # @staticmethod
+    # def get_num_children(idx, arcs):
+    #     left_children = 
 
     @staticmethod
     def extract_features(tokens, buffer, stack, arcs):
