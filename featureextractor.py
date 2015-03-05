@@ -109,6 +109,8 @@ class FeatureExtractor(object):
         if stack:
             stack_idx0 = stack[-1]
             token = tokens[stack_idx0]
+            print token
+
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('STK_0_FORM_' + token['word'])
 
@@ -154,9 +156,9 @@ class FeatureExtractor(object):
                     for feat in feats:
                         result.append('STK_1_FEATS_' + feat)
                 
-                num_leftchildren, num_rightchildren= FeatureExtractor.get_num_children(stack_idx1, arcs)
-                result.append('STK_1_LCHILDREN_' + num_leftchildren)
-                result.append('STK_1_RCHILDREN_' + num_rightchildren)
+                # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
+                # result.append('STK_1_LCHILDREN_' + num_leftchildren)
+                # result.append('STK_1_RCHILDREN_' + num_rightchildren)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('STK_1_CPOSTAG_' + token_1['ctag'])
@@ -165,8 +167,6 @@ class FeatureExtractor(object):
         if buffer:
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
-            
-            # print token
 
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
