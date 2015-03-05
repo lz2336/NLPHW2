@@ -248,21 +248,12 @@ class FeatureExtractor(object):
 
                 # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
                 #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
-            if len(buffer) > 4:
-                buffer_idx4 = buffer[4]
-                token_4 = tokens[buffer_idx4]
-
-                # if FeatureExtractor._check_informative(token_4['word'], True):
-                #     result.append('BUF_4_FORM_' + token_4['word'])
-
-                if 'tag' in token_4 and FeatureExtractor._check_informative(token_4['tag']):
-                    result.append('BUF_4_POSTAG_' + token_4['tag'])
 
             if stack:
                 stack_idx0 = stack[-1]
-                word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+                # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
                 num_NN, num_PO = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
-                result.append('STK_BUF_DIST_0_' + word_distance_0)
+                # result.append('STK_BUF_DIST_0_' + word_distance_0)
                 result.append('STK_BUF_INTV_NN_' + num_NN)
                 # result.append('STK_BUF_INTV_VV_' + num_VV)
                 result.append('STK_BUF_INTV_PO_' + num_PO)
