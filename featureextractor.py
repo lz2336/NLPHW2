@@ -163,13 +163,6 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('STK_1_FEATS_' + feat)
-
-                dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(stack_idx1, arcs)
-                if FeatureExtractor._check_informative(dep_left_most_1):
-                    result.append('STK_1_LDEP_' + dep_left_most_1)
-                if FeatureExtractor._check_informative(dep_right_most_1):
-                    result.append('STK_1_RDEP_' + dep_right_most_1)
-
                 
                 # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
                 # result.append('STK_1_LCHILDREN_' + num_leftchildren)
@@ -197,8 +190,8 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('BUF_0_POSTAG_' + token['tag'])
 
-            if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
-                result.append('BUF_0_CPOSTAG_' + token['ctag'])
+            # if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
+            #     result.append('BUF_0_CPOSTAG_' + token['ctag'])
 
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
 
@@ -226,12 +219,6 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('BUF_1_FEATS_' + feat)
-
-                # dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
-                # if FeatureExtractor._check_informative(dep_left_most_1):
-                #     result.append('BUF_1_LDEP_' + dep_left_most_1)
-                # if FeatureExtractor._check_informative(dep_right_most):
-                #     result.append('BUF_1_RDEP_' + dep_right_most_1)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
