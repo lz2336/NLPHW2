@@ -45,9 +45,19 @@ class FeatureExtractor(object):
                     dep_left_most = r
         return dep_left_most, dep_right_most
 
-    # @staticmethod
-    # def get_num_children(idx, arcs):
-    #     left_children = 
+    @staticmethod
+    def get_num_children(idx, arcs):
+        left_children = 0
+        right_children = 0
+        for (wi, r, wj) in arcs:
+            if wi == idx:
+                #left children
+                if (wj < wi):
+                    left_children += 1
+                #right children
+                if (wj > wi):
+                    right_children += 1
+        return str(left_children), str(right_children)
 
     @staticmethod
     def extract_features(tokens, buffer, stack, arcs):
@@ -96,6 +106,14 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('STK_0_POSTAG_' + token['tag'])
 
+            # Left most, right most dependency of stack[0]
+            dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
+
+            if FeatureExtractor._check_informative(dep_left_most):
+                result.append('STK_0_LDEP_' + dep_left_most)
+            if FeatureExtractor._check_informative(dep_right_most):
+                result.append('STK_0_RDEP_' + dep_right_most)
+
             if len(stack) > 1:
                 stack_idx1 = stack[-2]
                 token_1 = tokens[stack_idx1]
@@ -106,13 +124,10 @@ class FeatureExtractor(object):
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
 
-            # Left most, right most dependency of stack[0]
-            dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
-
-            if FeatureExtractor._check_informative(dep_left_most):
-                result.append('STK_0_LDEP_' + dep_left_most)
-            if FeatureExtractor._check_informative(dep_right_most):
-                result.append('STK_0_RDEP_' + dep_right_most)
+            #Number of left and right children for STK_0
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0)
+            result.append('STK_0_LEFTCHILDREN_' + num_leftchildren)
+            result.append('STK_0_RIGHTCHILDREN_' + num_rightchildren)
 
         if buffer:
             buffer_idx0 = buffer[0]
@@ -164,6 +179,11 @@ class FeatureExtractor(object):
                 result.append('BUF_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('BUF_0_RDEP_' + dep_right_most)
+
+            #Number of left and right children for BUF_0
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0)
+            result.append('BUF_0_LEFTCHILDREN_' + num_leftchildren)
+            result.append('BUF_0_RIGHTCHILDREN_' + num_rightchildren)
 
             if stack:
                 stack_idx0 = stack[-1]
