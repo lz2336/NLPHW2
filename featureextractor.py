@@ -30,26 +30,26 @@ class FeatureExtractor(object):
         return str(math.fabs(idx1 - idx2))
 
     @staticmethod
-    def get_num_intervening_NV(idx1, idx2, tokens):
+    def get_intervening_POS(idx1, idx2, tokens):
         if idx1 < idx2:
             i, j = idx1, idx2
         else:
             i, j = idx2, idx1
 
         num_intervening_VV = 0
-        num_intervening_HV = 0
         num_intervening_NN = 0
+        num_intervening_PO = 0
 
         for token_idx in range(i, j + 1):
             token = tokens[token_idx]
             if 'tag' in token:
                 if token['tag'] == 'VV':
                     num_intervening_VV += 1
-                if token['tag'] == 'HV':
-                    num_intervening_HV += 1
+                if token['tag'] == 'PO':
+                    num_intervening_PO += 1
                 if token['tag'] == 'NN':
                     num_intervening_NN += 1
-        return str(num_intervening_NN), str(num_intervening_VV), str(num_intervening_HV)
+        return str(num_intervening_NN), str(num_intervening_VV), str(num_intervening_PO)
 
 
     @staticmethod
@@ -113,7 +113,7 @@ class FeatureExtractor(object):
         if stack:
             stack_idx0 = stack[-1]
             token = tokens[stack_idx0]
-            print token
+            # print token
 
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('STK_0_FORM_' + token['word'])
@@ -248,10 +248,10 @@ class FeatureExtractor(object):
             if stack:
                 stack_idx0 = stack[-1]
                 word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                num_intervening_NN, num_intervening_VV, num_intervening_HV = FeatureExtractor.get_num_intervening_NV(stack_idx0, buffer_idx0, tokens)
+                num_intervening_NN, num_intervening_VV, num_intervening_PO = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
                 result.append('STK_BUF_DIST_0_' + word_distance_0)
-                result.append('STK_BUF_INTV_NN' + num_intervening_NN)
+                result.append('STK_BUF_INTV_NN_' + num_intervening_NN)
                 result.append('STK_BUF_INTV_VV_' + num_intervening_VV)
-                result.append('STK_BUF_INTV_HV' + num_intervening_HV)
+                result.append('STK_BUF_INTV_PO_' + num_intervening_PO)
 
         return result
