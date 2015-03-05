@@ -143,39 +143,6 @@ class FeatureExtractor(object):
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
 
-            if len(buffer) > 1:
-                buffer_idx1 = buffer[1]
-                token_1 = tokens[buffer_idx0]
-
-                if FeatureExtractor._check_informative(token_1['word'], True):
-                    result.append('BUF_1_FORM_' + token_1['word'])
-
-                if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
-                    result.append('BUF_1_POSTAG_' + token_1['tag'])
-
-                # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
-                #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
-
-            if len(buffer) > 2:
-                buffer_idx2 = buffer[2]
-                token_2 = tokens[buffer_idx2]
-
-                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
-                    result.append('BUF_2_POSTAG_' + token_2['tag'])
-
-                # if 'ctag' in token_2 and FeatureExtractor._check_informative(token_2['ctag']):
-                #     result.append('BUF_2_CPOSTAG_' + token_2['ctag'])
-
-            if len(buffer) > 3:
-                buffer_idx3 = buffer[3]
-                token_3 = tokens[buffer_idx2]
-
-                if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
-                    result.append('BUF_3_POSTAG_' + token_3['tag'])
-
-                # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
-                #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
-
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
                 for feat in feats:
@@ -202,6 +169,44 @@ class FeatureExtractor(object):
             result.append('BUF_0_LCHILDREN_' + num_leftchildren)
             result.append('BUF_0_RCHILDREN_' + num_rightchildren)
 
+            if len(buffer) > 1:
+                buffer_idx1 = buffer[1]
+                token_1 = tokens[buffer_idx1]
+
+                if FeatureExtractor._check_informative(token_1['word'], True):
+                    result.append('BUF_1_FORM_' + token_1['word'])
+
+                if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
+                    result.append('BUF_1_POSTAG_' + token_1['tag'])
+
+                # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
+                #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
+
+            if len(buffer) > 2:
+                buffer_idx2 = buffer[2]
+                token_2 = tokens[buffer_idx2]
+
+                if FeatureExtractor._check_informative(token_2['word'], True):
+                    result.append('BUF_2_FORM_' + token_2['word'])
+
+                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
+                    result.append('BUF_2_POSTAG_' + token_2['tag'])
+
+                # if 'ctag' in token_2 and FeatureExtractor._check_informative(token_2['ctag']):
+                #     result.append('BUF_2_CPOSTAG_' + token_2['ctag'])
+
+            if len(buffer) > 3:
+                buffer_idx3 = buffer[3]
+                token_3 = tokens[buffer_idx3]
+
+                if FeatureExtractor._check_informative(token_3['word'], True):
+                    result.append('BUF_3_FORM_' + token_3['word'])
+
+                if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
+                    result.append('BUF_3_POSTAG_' + token_3['tag'])
+
+                # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
+                #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
 
             if stack:
                 stack_idx0 = stack[-1]
