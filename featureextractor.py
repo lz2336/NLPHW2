@@ -146,7 +146,7 @@ class FeatureExtractor(object):
 
             #Number of left and right children for STK_0
             num_leftchildren, num_rightchildren= FeatureExtractor.get_num_children(stack_idx0, arcs)
-            result.append('STK_0_LCHILDREN_' + num_leftchildren)
+            # result.append('STK_0_LCHILDREN_' + num_leftchildren)
             result.append('STK_0_RCHILDREN_' + num_rightchildren)
 
             if len(stack) > 1:
@@ -200,9 +200,9 @@ class FeatureExtractor(object):
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('BUF_0_RDEP_' + dep_right_most)
 
-            # #Number of left and right children for BUF_0
-            # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
-            # result.append('BUF_0_LCHILDREN_' + num_leftchildren)
+            #Number of left and right children for BUF_0
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
+            result.append('BUF_0_LCHILDREN_' + num_leftchildren)
             # result.append('BUF_0_RCHILDREN_' + num_rightchildren)
 
             if len(buffer) > 1:
