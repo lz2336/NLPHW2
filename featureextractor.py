@@ -23,11 +23,26 @@ class FeatureExtractor(object):
         return True
 
     @staticmethod
-    def get_word_distance(idx1, idx2):
+    def get_word_distance(idx1, idx2, tokens):
         """
         Get distance between two words
         """
         return str(math.fabs(idx1 - idx2))
+
+    def get_num_intervening_VV(idx1, idx2):
+        if idx1 < idx2:
+            i, j = idx1, idx2
+        else:
+            i, j = idx2, idx1
+
+        num_intervening_VV = 0
+        for token_idx in range(i, j + 1):
+            token = tokens[token_idx]
+            if 'tag' in token:
+                if token['tag'] == 'VV':
+                    num_intervening_VV += 1
+        return str(num_intervening_VV)
+
 
     @staticmethod
     def find_left_right_dependencies(idx, arcs):
@@ -221,11 +236,10 @@ class FeatureExtractor(object):
             if stack:
                 stack_idx0 = stack[-1]
                 word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+                num_intervening_VV = FeatureExtractor.get_num_intervening_VV(stack_idx0, buffer_idx0)
                 result.append('STK_BUF_DIST_0_' + word_distance_0)
+                result.append('STK_BUF_INTV_VV_' + num_intervening_VV)
 
-                if len(stack) > 1 and len(buffer) > 1:
-                    stack_idx1 = stack[-2]
-                    word_distance_1 = FeatureExtractor.get_word_distance(stack_idx1, buffer_idx1)
-                    result.append('STK_BUF_DIST_1_' + word_distance_1)
+
 
         return result
