@@ -227,11 +227,11 @@ class FeatureExtractor(object):
                     for feat in feats:
                         result.append('BUF_1_FEATS_' + feat)
 
-                dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
-                if FeatureExtractor._check_informative(dep_left_most_1):
-                    result.append('BUF_1_LDEP_' + dep_left_most_1)
-                if FeatureExtractor._check_informative(dep_right_most):
-                    result.append('BUF_1_RDEP_' + dep_right_most_1)
+                # dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
+                # if FeatureExtractor._check_informative(dep_left_most_1):
+                #     result.append('BUF_1_LDEP_' + dep_left_most_1)
+                # if FeatureExtractor._check_informative(dep_right_most):
+                #     result.append('BUF_1_RDEP_' + dep_right_most_1)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
