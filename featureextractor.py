@@ -37,7 +37,7 @@ class FeatureExtractor(object):
             i, j = idx2, idx1
         
         num_NN = 0
-        num_VV = 0
+        # num_VV = 0
         num_PO = 0
         # num_PR = 0
 
@@ -47,13 +47,13 @@ class FeatureExtractor(object):
             if 'tag' in token:
                 if token['tag'] == 'NN':
                     num_NN += 1
-                if token['tag'] == 'VV':
-                    num_VV += 1
+                # if token['tag'] == 'VV':
+                #     num_VV += 1
                 # if token['tag'] == 'PR':
                 #     num_PR += 1
                 if token['tag'] == 'PO':
                     num_PO += 1
-        return str(num_NN), str(num_VV), str(num_PO)
+        return str(num_NN), str(num_PO)
 
 
     @staticmethod
@@ -163,6 +163,13 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('STK_1_FEATS_' + feat)
+
+                dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(stack_idx1, arcs)
+                if FeatureExtractor._check_informative(dep_left_most_1):
+                    result.append('STK_1_LDEP_' + dep_left_most_1)
+                if FeatureExtractor._check_informative(dep_right_most_1):
+                    result.append('STK_1_RDEP_' + dep_right_most_1)
+
                 
                 # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
                 # result.append('STK_1_LCHILDREN_' + num_leftchildren)
@@ -220,6 +227,12 @@ class FeatureExtractor(object):
                     for feat in feats:
                         result.append('BUF_1_FEATS_' + feat)
 
+                dep_left_most_1, dep_right_most_1 = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
+                if FeatureExtractor._check_informative(dep_left_most_1):
+                    result.append('BUF_1_LDEP_' + dep_left_most_1)
+                if FeatureExtractor._check_informative(dep_right_most):
+                    result.append('BUF_1_RDEP_' + dep_right_most_1)
+
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
 
@@ -252,10 +265,10 @@ class FeatureExtractor(object):
             if stack:
                 stack_idx0 = stack[-1]
                 word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                num_NN, num_VV, num_PO = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
+                num_NN, num_PO = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
                 result.append('STK_BUF_DIST_0_' + word_distance_0)
                 result.append('STK_BUF_INTV_NN_' + num_NN)
-                result.append('STK_BUF_INTV_VV_' + num_VV)
+                # result.append('STK_BUF_INTV_VV_' + num_VV)
                 result.append('STK_BUF_INTV_PO_' + num_PO)
                 # result.append('STK_BUF_INTV_PR_' + num_PR)
 
