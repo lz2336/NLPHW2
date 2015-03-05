@@ -114,6 +114,11 @@ class FeatureExtractor(object):
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('STK_0_RDEP_' + dep_right_most)
 
+            #Number of left and right children for STK_0
+            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0, arcs)
+            result.append('STK_0_LEFTCHILDREN_' + num_leftchildren)
+            result.append('STK_0_RIGHTCHILDREN_' + num_rightchildren)
+
             if len(stack) > 1:
                 stack_idx1 = stack[-2]
                 token_1 = tokens[stack_idx1]
@@ -124,10 +129,12 @@ class FeatureExtractor(object):
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
 
-            #Number of left and right children for STK_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx0, arcs)
-            result.append('STK_0_LEFTCHILDREN_' + num_leftchildren)
-            result.append('STK_0_RIGHTCHILDREN_' + num_rightchildren)
+                #Number of left and right children for STK_1
+                num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
+                result.append('STK_1_LEFTCHILDREN_' + num_leftchildren)
+                result.append('STK_1_RIGHTCHILDREN_' + num_rightchildren)
+
+
 
         if buffer:
             buffer_idx0 = buffer[0]
@@ -179,11 +186,6 @@ class FeatureExtractor(object):
                 result.append('BUF_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('BUF_0_RDEP_' + dep_right_most)
-
-            #Number of left and right children for BUF_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
-            result.append('BUF_0_LEFTCHILDREN_' + num_leftchildren)
-            result.append('BUF_0_RIGHTCHILDREN_' + num_rightchildren)
 
             if stack:
                 stack_idx0 = stack[-1]
