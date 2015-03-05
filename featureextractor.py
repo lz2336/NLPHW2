@@ -117,8 +117,8 @@ class FeatureExtractor(object):
                 for feat in feats:
                     result.append('STK_0_FEATS_' + feat)
 
-            # if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
-            #     result.append('STK_0_LEMMA_' + token['lemma'])
+            if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
+                result.append('STK_0_LEMMA_' + token['lemma'])
 
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('STK_0_POSTAG_' + token['tag'])
@@ -172,8 +172,8 @@ class FeatureExtractor(object):
                 for feat in feats:
                     result.append('BUF_0_FEATS_' + feat)
 
-            # if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
-            #     result.append('BUF_0_LEMMA_' + token['lemma'])
+            if 'lemma' in token and FeatureExtractor._check_informative(token['lemma']):
+                result.append('BUF_0_LEMMA_' + token['lemma'])
 
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('BUF_0_POSTAG_' + token['tag'])
