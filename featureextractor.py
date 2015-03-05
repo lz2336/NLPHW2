@@ -130,6 +130,11 @@ class FeatureExtractor(object):
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
 
+                if 'feats' in token_1 and FeatureExtractor._check_informative(token_1['feats']):
+                    feats = token_1['feats'].split("|")
+                    for feat in feats:
+                        result.append('STK_1_FEATS_' + feat)
+
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('STK_1_CPOSTAG_' + token_1['ctag'])
 
@@ -178,6 +183,11 @@ class FeatureExtractor(object):
 
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('BUF_1_POSTAG_' + token_1['tag'])
+
+                if 'feats' in token_1 and FeatureExtractor._check_informative(token_1['feats']):
+                    feats = token_1['feats'].split("|")
+                    for feat in feats:
+                        result.append('BUF_1_FEATS_' + feat)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
