@@ -190,20 +190,20 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('BUF_0_POSTAG_' + token['tag'])
 
-            # if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
-            #     result.append('BUF_0_CPOSTAG_' + token['ctag'])
+            if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
+                result.append('BUF_0_CPOSTAG_' + token['ctag'])
 
-            dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
+            # dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
 
-            if FeatureExtractor._check_informative(dep_left_most):
-                result.append('BUF_0_LDEP_' + dep_left_most)
-            if FeatureExtractor._check_informative(dep_right_most):
-                result.append('BUF_0_RDEP_' + dep_right_most)
+            # if FeatureExtractor._check_informative(dep_left_most):
+            #     result.append('BUF_0_LDEP_' + dep_left_most)
+            # if FeatureExtractor._check_informative(dep_right_most):
+            #     result.append('BUF_0_RDEP_' + dep_right_most)
 
-            #Number of left and right children for BUF_0
-            num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
-            result.append('BUF_0_LCHILDREN_' + num_leftchildren)
-            result.append('BUF_0_RCHILDREN_' + num_rightchildren)
+            # #Number of left and right children for BUF_0
+            # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
+            # result.append('BUF_0_LCHILDREN_' + num_leftchildren)
+            # result.append('BUF_0_RCHILDREN_' + num_rightchildren)
 
             if len(buffer) > 1:
                 buffer_idx1 = buffer[1]
