@@ -46,6 +46,10 @@ class FeatureExtractor(object):
         return dep_left_most, dep_right_most
 
     @staticmethod
+    def get_num_children(idx, arcs):
+        left_children = 
+
+    @staticmethod
     def extract_features(tokens, buffer, stack, arcs):
         """
         This function returns a list of string features for the classifier
@@ -100,7 +104,7 @@ class FeatureExtractor(object):
                     result.append('STK_1_FORM_' + token_1['word'])
 
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
-                    result.append('STK_1_POSTAG_' + token['tag'])
+                    result.append('STK_1_POSTAG_' + token_1['tag'])
 
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
