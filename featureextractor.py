@@ -100,6 +100,9 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('STK_0_POSTAG_' + token['tag'])
 
+            if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
+                result.append('STK_0_CPOSTAG_' + token['ctag'])
+
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
 
@@ -122,12 +125,15 @@ class FeatureExtractor(object):
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('STK_1_POSTAG_' + token_1['tag'])
 
+                if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
+                    result.append('STK_1_CPOSTAG_' + token_1['ctag'])
+
 
         if buffer:
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
             
-            print token
+            # print token
 
             if FeatureExtractor._check_informative(token['word'], True):
                 result.append('BUF_0_FORM_' + token['word'])
@@ -142,6 +148,9 @@ class FeatureExtractor(object):
                 if 'tag' in token_1 and FeatureExtractor._check_informative(token_1['tag']):
                     result.append('BUF_1_POSTAG_' + token_1['tag'])
 
+                # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
+                #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
+
             if len(buffer) > 2:
                 buffer_idx2 = buffer[2]
                 token_2 = tokens[buffer_idx2]
@@ -149,12 +158,18 @@ class FeatureExtractor(object):
                 if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
                     result.append('BUF_2_POSTAG_' + token_2['tag'])
 
+                # if 'ctag' in token_2 and FeatureExtractor._check_informative(token_2['ctag']):
+                #     result.append('BUF_2_CPOSTAG_' + token_2['ctag'])
+
             if len(buffer) > 3:
                 buffer_idx3 = buffer[3]
                 token_3 = tokens[buffer_idx2]
 
                 if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
                     result.append('BUF_3_POSTAG_' + token_3['tag'])
+
+                # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
+                #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
 
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
@@ -166,6 +181,9 @@ class FeatureExtractor(object):
 
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('BUF_0_POSTAG_' + token['tag'])
+
+            if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
+                result.append('BUF_0_CPOSTAG_' + token['ctag'])
 
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx0, arcs)
 
