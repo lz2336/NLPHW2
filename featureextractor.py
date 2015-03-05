@@ -139,8 +139,8 @@ class FeatureExtractor(object):
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
 
-            if FeatureExtractor._check_informative(dep_left_most):
-                result.append('STK_0_LDEP_' + dep_left_most)
+            # if FeatureExtractor._check_informative(dep_left_most):
+            #     result.append('STK_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('STK_0_RDEP_' + dep_right_most)
 
@@ -197,8 +197,8 @@ class FeatureExtractor(object):
 
             if FeatureExtractor._check_informative(dep_left_most):
                 result.append('BUF_0_LDEP_' + dep_left_most)
-            if FeatureExtractor._check_informative(dep_right_most):
-                result.append('BUF_0_RDEP_' + dep_right_most)
+            # if FeatureExtractor._check_informative(dep_right_most):
+            #     result.append('BUF_0_RDEP_' + dep_right_most)
 
             #Number of left and right children for BUF_0
             num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
