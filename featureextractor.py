@@ -29,6 +29,7 @@ class FeatureExtractor(object):
         """
         return str(math.fabs(idx1 - idx2))
 
+    @staticmethod
     def get_num_intervening_VV(idx1, idx2, tokens):
         if idx1 < idx2:
             i, j = idx1, idx2
