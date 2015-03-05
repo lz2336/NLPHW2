@@ -131,7 +131,7 @@ class FeatureExtractor(object):
 
                 if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
                     result.append('BUF_3_POSTAG_' + token_3['tag'])
-                    
+
             if 'feats' in token and FeatureExtractor._check_informative(token['feats']):
                 feats = token['feats'].split("|")
                 for feat in feats:
@@ -149,5 +149,10 @@ class FeatureExtractor(object):
                 result.append('BUF_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('BUF_0_RDEP_' + dep_right_most)
+
+            if stack:
+                stack_idx0 = stack[-1]
+                word_distance = math.fabs(stack_idx0 - buffer_idx0)
+                result.append('STK_BUF_DIST_' + str(word_distance))
 
         return result
