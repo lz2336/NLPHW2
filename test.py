@@ -13,14 +13,14 @@ if __name__ == '__main__':
     try:
         tp = TransitionParser(Transition, FeatureExtractor)
         tp.train(subdata)
-        tp.save('danish.model')
+        tp.save('english.model')
 
         testdata = dataset.get_swedish_test_corpus().parsed_sents()
-        tp = TransitionParser.load('danish.model')
+        tp = TransitionParser.load('english.model')
 
         parsed = tp.parse(testdata)
 
-        with open('danish.conll', 'w') as f:
+        with open('english.conll', 'w') as f:
             for p in parsed:
                 f.write(p.to_conll(10).encode('utf-8'))
                 f.write('\n')
