@@ -164,6 +164,13 @@ class FeatureExtractor(object):
                     for feat in feats:
                         result.append('STK_1_FEATS_' + feat)
                 
+                dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx1, arcs)
+
+                if FeatureExtractor._check_informative(dep_left_most):
+                    result.append('STK_1_LDEP_' + dep_left_most)
+                if FeatureExtractor._check_informative(dep_right_most):
+                    result.append('STK_1_RDEP_' + dep_right_most)
+
                 # num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(stack_idx1, arcs)
                 # result.append('STK_1_LCHILDREN_' + num_leftchildren)
                 # result.append('STK_1_RCHILDREN_' + num_rightchildren)
@@ -218,6 +225,7 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('BUF_1_FEATS_' + feat)
+                
                 dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
 
                 if FeatureExtractor._check_informative(dep_left_most):
