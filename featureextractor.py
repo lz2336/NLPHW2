@@ -44,10 +44,10 @@ class FeatureExtractor(object):
 
         for token_idx in range(i, j + 1):
             token = tokens[token_idx]
-            if 'tag' in token:
-                if token['tag'] == 'NN' or token['tag'] == 'NOUN':
+            if 'ctag' in token:
+                if token['ctag'] == 'NN' or token['ctag'] == 'NOUN':
                     num_NN += 1
-                if token['tag'] == 'VV' or token['tag'] == 'VERB':
+                if token['ctag'] == 'VV' or token['ctag'] == 'VERB':
                     num_VV += 1
                 # if token['tag'] == 'PR':
                 #     num_PR += 1
