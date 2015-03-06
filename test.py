@@ -16,7 +16,7 @@ if __name__ == '__main__':
         tp.save('english.model')
 
         testdata = dataset.get_english_dev_corpus().parsed_sents()
-        tp = TransitionParser.load('english.model')
+        # tp = TransitionParser.load('english.model')
 
         parsed = tp.parse(testdata)
 
