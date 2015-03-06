@@ -171,18 +171,6 @@ class FeatureExtractor(object):
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('STK_1_CPOSTAG_' + token_1['ctag'])
 
-            if len(stack) > 2:
-                stack_idx2 = stack[-3]
-                token_2 = tokens[stack_idx2]
-                if FeatureExtractor._check_informative(token_2['word'], True):
-                    result.append('STK_2_FORM_' + token_2['word'])
-
-                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
-                    result.append('STK_2_POSTAG_' + token_2['tag'])
-
-
-
-
         if buffer:
             buffer_idx0 = buffer[0]
             token = tokens[buffer_idx0]
@@ -230,6 +218,12 @@ class FeatureExtractor(object):
                     feats = token_1['feats'].split("|")
                     for feat in feats:
                         result.append('BUF_1_FEATS_' + feat)
+                dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(buffer_idx1, arcs)
+
+                if FeatureExtractor._check_informative(dep_left_most):
+                    result.append('BUF_1_LDEP_' + dep_left_most)
+                if FeatureExtractor._check_informative(dep_right_most):
+                    result.append('BUF_1_RDEP_' + dep_right_most)
 
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
