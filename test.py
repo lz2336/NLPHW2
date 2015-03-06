@@ -15,7 +15,7 @@ if __name__ == '__main__':
         tp.train(subdata)
         tp.save('danish.model')
 
-        testdata = dataset.get_english_test_corpus().parsed_sents()
+        testdata = dataset.get_danish_test_corpus().parsed_sents()
         tp = TransitionParser.load('danish.model')
 
         parsed = tp.parse(testdata)
