@@ -37,8 +37,8 @@ class FeatureExtractor(object):
             i, j = idx2, idx1
         
         num_NN = 0
-        # num_VV = 0
-        num_PO = 0
+        num_VV = 0
+        # num_PO = 0
         # num_PR = 0
 
 
@@ -47,13 +47,13 @@ class FeatureExtractor(object):
             if 'tag' in token:
                 if token['tag'] == 'NN':
                     num_NN += 1
-                # if token['tag'] == 'VV':
-                #     num_VV += 1
+                if token['tag'] == 'VV':
+                    num_VV += 1
                 # if token['tag'] == 'PR':
                 #     num_PR += 1
-                if token['tag'] == 'PO':
-                    num_PO += 1
-        return str(num_NN), str(num_PO)
+                # if token['tag'] == 'PO':
+                #     num_PO += 1
+        return str(num_NN), str(num_VV)
 
 
     @staticmethod
@@ -139,8 +139,8 @@ class FeatureExtractor(object):
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
 
-            # if FeatureExtractor._check_informative(dep_left_most):
-            #     result.append('STK_0_LDEP_' + dep_left_most)
+            if FeatureExtractor._check_informative(dep_left_most):
+                result.append('STK_0_LDEP_' + dep_left_most)
             if FeatureExtractor._check_informative(dep_right_most):
                 result.append('STK_0_RDEP_' + dep_right_most)
 
@@ -197,8 +197,8 @@ class FeatureExtractor(object):
 
             if FeatureExtractor._check_informative(dep_left_most):
                 result.append('BUF_0_LDEP_' + dep_left_most)
-            # if FeatureExtractor._check_informative(dep_right_most):
-            #     result.append('BUF_0_RDEP_' + dep_right_most)
+            if FeatureExtractor._check_informative(dep_right_most):
+                result.append('BUF_0_RDEP_' + dep_right_most)
 
             #Number of left and right children for BUF_0
             num_leftchildren, num_rightchildren = FeatureExtractor.get_num_children(buffer_idx0, arcs)
@@ -252,11 +252,11 @@ class FeatureExtractor(object):
             if stack:
                 stack_idx0 = stack[-1]
                 # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                num_NN, num_PO = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
+                num_NN, num_VV = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
                 # result.append('STK_BUF_DIST_0_' + word_distance_0)
                 result.append('STK_BUF_INTV_NN_' + num_NN)
-                # result.append('STK_BUF_INTV_VV_' + num_VV)
-                result.append('STK_BUF_INTV_PO_' + num_PO)
+                result.append('STK_BUF_INTV_VV_' + num_VV)
+                # result.append('STK_BUF_INTV_PO_' + num_PO)
                 # result.append('STK_BUF_INTV_PR_' + num_PR)
 
         return result
