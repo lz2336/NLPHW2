@@ -39,7 +39,7 @@ class FeatureExtractor(object):
         num_NN = 0
         num_VV = 0
         # num_PO = 0
-        num_PR = 0
+        # num_PR = 0
 
 
         for token_idx in range(i, j + 1):
@@ -49,11 +49,11 @@ class FeatureExtractor(object):
                     num_NN += 1
                 if token['tag'] == 'VV':
                     num_VV += 1
-                if token['tag'] == 'PR':
-                    num_PR += 1
+                # if token['tag'] == 'PR':
+                #     num_PR += 1
                 # if token['tag'] == 'PO':
                 #     num_PO += 1
-        return str(num_NN), str(num_VV), str(num_PR)
+        return str(num_NN), str(num_VV)
 
 
     @staticmethod
@@ -249,14 +249,14 @@ class FeatureExtractor(object):
                 # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
                 #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
 
-            if stack:
-                stack_idx0 = stack[-1]
-                # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-                num_NN, num_VV, num_PR = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
-                # result.append('STK_BUF_DIST_0_' + word_distance_0)
-                result.append('STK_BUF_INTV_NN_' + num_NN)
-                result.append('STK_BUF_INTV_VV_' + num_VV)
-                # result.append('STK_BUF_INTV_PO_' + num_PO)
-                result.append('STK_BUF_INTV_PR_' + num_PR)
+            # if stack:
+            #     stack_idx0 = stack[-1]
+            #     # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+            #     num_NN, num_VV = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
+            #     # result.append('STK_BUF_DIST_0_' + word_distance_0)
+            #     result.append('STK_BUF_INTV_NN_' + num_NN)
+            #     result.append('STK_BUF_INTV_VV_' + num_VV)
+            #     # result.append('STK_BUF_INTV_PO_' + num_PO)
+            #     # result.append('STK_BUF_INTV_PR_' + num_PR)
 
         return result
