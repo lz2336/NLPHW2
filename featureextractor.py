@@ -229,31 +229,31 @@ class FeatureExtractor(object):
                 # if 'ctag' in token_1 and FeatureExtractor._check_informative(token_1['ctag']):
                 #     result.append('BUF_1_CPOSTAG_' + token_1['ctag'])
 
-            if len(buffer) > 2:
-                buffer_idx2 = buffer[2]
-                token_2 = tokens[buffer_idx2]
+            # if len(buffer) > 2:
+            #     buffer_idx2 = buffer[2]
+            #     token_2 = tokens[buffer_idx2]
 
             #     if FeatureExtractor._check_informative(token_2['word'], True):
             #         result.append('BUF_2_FORM_' + token_2['word'])
 
-                if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
-                    result.append('BUF_2_POSTAG_' + token_2['tag'])
+                # if 'tag' in token_2 and FeatureExtractor._check_informative(token_2['tag']):
+                #     result.append('BUF_2_POSTAG_' + token_2['tag'])
 
-                if 'ctag' in token_2 and FeatureExtractor._check_informative(token_2['ctag']):
-                    result.append('BUF_2_CPOSTAG_' + token_2['ctag'])
+                # if 'ctag' in token_2 and FeatureExtractor._check_informative(token_2['ctag']):
+                #     result.append('BUF_2_CPOSTAG_' + token_2['ctag'])
 
-            if len(buffer) > 3:
-                buffer_idx3 = buffer[3]
-                token_3 = tokens[buffer_idx3]
+            # if len(buffer) > 3:
+            #     buffer_idx3 = buffer[3]
+            #     token_3 = tokens[buffer_idx3]
 
             #     if FeatureExtractor._check_informative(token_3['word'], True):
             #         result.append('BUF_3_FORM_' + token_3['word'])
 
-                if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
-                    result.append('BUF_3_POSTAG_' + token_3['tag'])
+                # if 'tag' in token_3 and FeatureExtractor._check_informative(token_3['tag']):
+                #     result.append('BUF_3_POSTAG_' + token_3['tag'])
 
-                if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
-                    result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
+                # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
+                #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
 
             if stack:
                 stack_idx0 = stack[-1]
