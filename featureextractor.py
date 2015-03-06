@@ -133,8 +133,8 @@ class FeatureExtractor(object):
             if 'tag' in token and FeatureExtractor._check_informative(token['tag']):
                 result.append('STK_0_POSTAG_' + token['tag'])
 
-            if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
-                result.append('STK_0_CPOSTAG_' + token['ctag'])
+            # if 'ctag' in token and FeatureExtractor._check_informative(token['ctag']):
+            #     result.append('STK_0_CPOSTAG_' + token['ctag'])
 
             # Left most, right most dependency of stack[0]
             dep_left_most, dep_right_most = FeatureExtractor.find_left_right_dependencies(stack_idx0, arcs)
@@ -249,14 +249,14 @@ class FeatureExtractor(object):
                 # if 'ctag' in token_3 and FeatureExtractor._check_informative(token_3['ctag']):
                 #     result.append('BUF_3_CPOSTAG_' + token_3['ctag'])
 
-            # if stack:
-            #     stack_idx0 = stack[-1]
-            #     # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
-            #     num_NN, num_VV = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
-            #     # result.append('STK_BUF_DIST_0_' + word_distance_0)
-            #     result.append('STK_BUF_INTV_NN_' + num_NN)
-            #     result.append('STK_BUF_INTV_VV_' + num_VV)
-            #     # result.append('STK_BUF_INTV_PO_' + num_PO)
-            #     # result.append('STK_BUF_INTV_PR_' + num_PR)
+            if stack:
+                stack_idx0 = stack[-1]
+                # word_distance_0 = FeatureExtractor.get_word_distance(stack_idx0, buffer_idx0)
+                num_NN, num_VV = FeatureExtractor.get_intervening_POS(stack_idx0, buffer_idx0, tokens)
+                # result.append('STK_BUF_DIST_0_' + word_distance_0)
+                result.append('STK_BUF_INTV_NN_' + num_NN)
+                result.append('STK_BUF_INTV_VV_' + num_VV)
+                # result.append('STK_BUF_INTV_PO_' + num_PO)
+                # result.append('STK_BUF_INTV_PR_' + num_PR)
 
         return result
