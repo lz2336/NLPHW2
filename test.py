@@ -19,7 +19,7 @@ if __name__ == '__main__':
         tp = TransitionParser(Transition, FeatureExtractor)
         tp.train(subdata)
 
-        # tp.save('swedish.model')
+        tp.save('swedish.model')
         # tp.save('danish.model')
         # tp.save('english.model')
         # tp.save('korean.model')
@@ -29,7 +29,7 @@ if __name__ == '__main__':
         # testdata = dataset.get_english_dev_corpus().parsed_sents()
         # testdata = dataset.get_korean_test_corpus().parsed_sents()
         
-        tp = TransitionParser.load('badfeatures.model')
+        # tp = TransitionParser.load('badfeatures.model')
 
         parsed = tp.parse(testdata)
 
