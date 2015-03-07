@@ -7,8 +7,8 @@ from transition import Transition
 
 if __name__ == '__main__':
     
-    data = dataset.get_swedish_train_corpus().parsed_sents()
-    # data = dataset.get_danish_train_corpus().parsed_sents()
+    # data = dataset.get_swedish_train_corpus().parsed_sents()
+    data = dataset.get_danish_train_corpus().parsed_sents()
     # data = dataset.get_english_train_corpus().parsed_sents()
     # data = dataset.get_korean_train_corpus().parsed_sents()
 
@@ -19,13 +19,13 @@ if __name__ == '__main__':
         tp = TransitionParser(Transition, FeatureExtractor)
         tp.train(subdata)
 
-        tp.save('swedish.model')
-        # tp.save('danish.model')
+        # tp.save('swedish.model')
+        tp.save('danish.model')
         # tp.save('english.model')
         # tp.save('korean.model')
 
-        testdata = dataset.get_swedish_test_corpus().parsed_sents()
-        # testdata = dataset.get_danish_test_corpus().parsed_sents()
+        # testdata = dataset.get_swedish_test_corpus().parsed_sents()
+        testdata = dataset.get_danish_test_corpus().parsed_sents()
         # testdata = dataset.get_english_dev_corpus().parsed_sents()
         # testdata = dataset.get_korean_test_corpus().parsed_sents()
         
@@ -33,8 +33,8 @@ if __name__ == '__main__':
 
         parsed = tp.parse(testdata)
 
-        conllFile = 'swedish.conll'
-        # conllFile = 'danish.conll'
+        # conllFile = 'swedish.conll'
+        conllFile = 'danish.conll'
         # conllFile = 'english.conll'
         # conllFile = 'korean.conll'
 
