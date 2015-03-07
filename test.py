@@ -6,21 +6,39 @@ from featureextractor import FeatureExtractor
 from transition import Transition
 
 if __name__ == '__main__':
-    data = dataset.get_english_train_corpus().parsed_sents()
+    
+    data = dataset.get_swedish_train_corpus().parsed_sents()
+    # data = dataset.get_danish_train_corpus().parsed_sents()
+    # data = dataset.get_english_train_corpus().parsed_sents()
+    # data = dataset.get_korean_train_corpus().parsed_sents()
+
     random.seed(1234)
     subdata = random.sample(data, 200)
 
     try:
         tp = TransitionParser(Transition, FeatureExtractor)
         tp.train(subdata)
-        tp.save('english.model')
 
-        testdata = dataset.get_english_dev_corpus().parsed_sents()
-        # tp = TransitionParser.load('english.model')
+        # tp.save('swedish.model')
+        # tp.save('danish.model')
+        # tp.save('english.model')
+        # tp.save('korean.model')
+
+        testdata = dataset.get_swedish_test_corpus().parsed_sents()
+        # testdata = dataset.get_danish_test_corpus().parsed_sents()
+        # testdata = dataset.get_english_dev_corpus().parsed_sents()
+        # testdata = dataset.get_korean_test_corpus().parsed_sents()
+        
+        tp = TransitionParser.load('badfeatures.model')
 
         parsed = tp.parse(testdata)
 
-        with open('english.conll', 'w') as f:
+        conllFile = 'swedish.conll'
+        # conllFile = 'danish.conll'
+        # conllFile = 'english.conll'
+        # conllFile = 'korean.conll'
+
+        with open(conllFile, 'w') as f:
             for p in parsed:
                 f.write(p.to_conll(10).encode('utf-8'))
                 f.write('\n')
