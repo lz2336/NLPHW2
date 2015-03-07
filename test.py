@@ -9,8 +9,8 @@ if __name__ == '__main__':
     
     # data = dataset.get_swedish_train_corpus().parsed_sents()
     # data = dataset.get_danish_train_corpus().parsed_sents()
-    data = dataset.get_english_train_corpus().parsed_sents()
-    # data = dataset.get_korean_train_corpus().parsed_sents()
+    # data = dataset.get_english_train_corpus().parsed_sents()
+    data = dataset.get_korean_train_corpus().parsed_sents()
 
     random.seed(1234)
     subdata = random.sample(data, 200)
@@ -21,13 +21,13 @@ if __name__ == '__main__':
 
         # tp.save('swedish.model')
         # tp.save('danish.model')
-        tp.save('english.model')
-        # tp.save('korean.model')
+        # tp.save('english.model')
+        tp.save('korean.model')
 
         # testdata = dataset.get_swedish_test_corpus().parsed_sents()
         # testdata = dataset.get_danish_test_corpus().parsed_sents()
-        testdata = dataset.get_english_dev_corpus().parsed_sents()
-        # testdata = dataset.get_korean_test_corpus().parsed_sents()
+        # testdata = dataset.get_english_dev_corpus().parsed_sents()
+        testdata = dataset.get_korean_test_corpus().parsed_sents()
         
         # tp = TransitionParser.load('badfeatures.model')
 
@@ -35,8 +35,8 @@ if __name__ == '__main__':
 
         # conllFile = 'swedish.conll'
         # conllFile = 'danish.conll'
-        conllFile = 'english.conll'
-        # conllFile = 'korean.conll'
+        # conllFile = 'english.conll'
+        conllFile = 'korean.conll'
 
         with open(conllFile, 'w') as f:
             for p in parsed:
